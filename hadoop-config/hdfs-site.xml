@@ -1,16 +1,10 @@
 <configuration>
-    <!-- Set replication factor to 3 -->
     <property>
         <name>dfs.replication</name>
         <value>3</value>
     </property>
-    <!-- Enable multi-node cluster mode -->
     <property>
-        <name>dfs.namenode.name.dir</name>
-        <value>/opt/hadoop/data/namenode</value>
-    </property>
-    <property>
-        <name>dfs.datanode.data.dir</name>
-        <value>/opt/hadoop/data/datanode</value>
+        <name>dfs.namenode.rpc-address</name>
+        <value>namenode:9000</value>
     </property>
 </configuration>

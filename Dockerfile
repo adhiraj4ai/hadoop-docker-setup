@@ -30,6 +30,10 @@ ENV PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
 ENV YARN_RESOURCEMANAGER_USER=root
 ENV YARN_NODEMANAGER_USER=root
 ENV HADOOP_OPTS="-Djava.net.preferIPv4Stack=true -Xmx512m"
+ENV HADOOP_MAPRED_HOME=/opt/hadoop
+ENV YARN_HOME=/opt/hadoop
+ENV HADOOP_HOME=/opt/hadoop
+ENV PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
 
 # Copy configuration files
 COPY hadoop-config/ $HADOOP_HOME/etc/hadoop/

@@ -1,15 +1,36 @@
 <?xml version="1.0"?>
 <configuration>
+    <!-- Essential Properties -->
+    <property>
+        <name>yarn.resourcemanager.hostname</name>
+        <value>namenode</value>  <!-- Must match your master node hostname -->
+    </property>
     <property>
         <name>yarn.nodemanager.aux-services</name>
         <value>mapreduce_shuffle</value>
     </property>
     <property>
-        <name>yarn.resourcemanager.hostname</name>
-        <value>hadoop</value>
+        <name>yarn.nodemanager.aux-services.mapreduce.shuffle.class</name>
+        <value>org.apache.hadoop.mapred.ShuffleHandler</value>
     </property>
+    
+    <!-- ResourceManager RPC Configuration -->
     <property>
         <name>yarn.resourcemanager.address</name>
-        <value>hadoop:8032</value>
+        <value>namenode:8032</value>  <!-- Consistent with hostname -->
+    </property>
+    <property>
+        <name>yarn.resourcemanager.scheduler.address</name>
+        <value>namenode:8030</value>
+    </property>
+    <property>
+        <name>yarn.resourcemanager.resource-tracker.address</name>
+        <value>namenode:8031</value>
+    </property>
+    
+    <!-- Web UI -->
+    <property>
+        <name>yarn.resourcemanager.webapp.address</name>
+        <value>namenode:8088</value>
     </property>
 </configuration>

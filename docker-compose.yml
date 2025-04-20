@@ -10,6 +10,12 @@ services:
       - "8088:8088"   # YARN Web UI
       - "9000:9000"   # HDFS
       - "22:22"       # SSH
+    command: >
+      bash -c "
+      hdfs namenode -format -force;
+      start-dfs.sh;
+      start-yarn.sh;
+      tail -f /dev/null"
     volumes:
       - namenode-data:/opt/hadoop/data/namenode
       - ./logs:/opt/hadoop/logs
