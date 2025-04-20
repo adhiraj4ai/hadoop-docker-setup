@@ -1,15 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-  <property>
-    <name>dfs.replication</name>
-    <value>1</value>
-  </property>
-  <property>
-    <name>dfs.namenode.name.dir</name>
-    <value>/opt/hadoop/data/dfs/name</value>
-  </property>
-  <property>
-    <name>dfs.datanode.data.dir</name>
-    <value>/opt/hadoop/data/dfs/data</value>
-  </property>
+    <!-- Set replication factor to 3 -->
+    <property>
+        <name>dfs.replication</name>
+        <value>3</value>
+    </property>
+    <!-- Enable multi-node cluster mode -->
+    <property>
+        <name>dfs.namenode.name.dir</name>
+        <value>/opt/hadoop/data/namenode</value>
+    </property>
+    <property>
+        <name>dfs.datanode.data.dir</name>
+        <value>/opt/hadoop/data/datanode</value>
+    </property>
 </configuration>

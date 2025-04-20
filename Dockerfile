@@ -31,15 +31,14 @@ ENV YARN_RESOURCEMANAGER_USER=root
 ENV YARN_NODEMANAGER_USER=root
 ENV HADOOP_OPTS="-Djava.net.preferIPv4Stack=true -Xmx512m"
 
-# Build Hadoop native libraries
-RUN cd /opt/hadoop && mvn package -Pdist,native -DskipTests -Dtar       
-
 # Copy configuration files
 COPY hadoop-config/ $HADOOP_HOME/etc/hadoop/
 
 # Copy bootstrap script
 COPY bootstrap.sh /bootstrap.sh
 RUN chmod +x /bootstrap.sh
+
+COPY --chown=root:root config/workers $HADOOP_HOME/etc/hadoop/workers
 
 # Create data and logs directories
 RUN mkdir -p /opt/hadoop/data/dfs/{name,data} && \
