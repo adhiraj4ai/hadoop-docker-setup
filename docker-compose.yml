@@ -73,11 +73,49 @@ services:
       - YARN_NODEMANAGER_USER=root
       - CLUSTER_MODE=multi
 
+  # Add Spark services
+  spark-master:
+    image: bitnami/spark:3.5
+    hostname: spark-master
+    container_name: spark-master
+    ports:
+      - "8080:8080"  # Spark UI
+      - "7077:7077"  # Spark master port
+    volumes:
+      - ./spark-config:/opt/bitnami/spark/conf
+      - hadoop-config:/opt/hadoop/etc/hadoop:ro
+    environment:
+      - SPARK_MODE=master
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_LOCAL_STORAGE_ENABLED=no
+      - SPARK_HADOOP_CONF_DIR=/opt/hadoop/etc/hadoop
+    networks:
+      - hadoop-net
+    depends_on:
+      - namenode
+
+  spark-worker:
+    image: bitnami/spark:3.5
+    hostname: spark-worker
+    container_name: spark-worker1
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark-master:7077
+      - SPARK_WORKER_MEMORY=2G
+      - SPARK_HADOOP_CONF_DIR=/opt/hadoop/etc/hadoop
+    volumes:
+      - hadoop-config:/opt/hadoop/etc/hadoop:ro
+    networks:
+      - hadoop-net
+    depends_on:
+      - spark-master
+
 volumes:
   namenode-data:
   datanode1-data:
   datanode2-data:
   datanode3-data:
+  hadoop-config:
 
 networks:
   hadoop-net:
